@@ -51,3 +51,67 @@ badAdd (x:y:z:[]) = x + y + z
 firstLetter :: String -> String
 firstLetter "" = "Empty string, whoops!"
 firstLetter all@(x:xs) = "The first letter of " ++ all ++ " is " ++ [x]
+
+bmiTell :: Double -> String
+bmiTell bmi
+  | bmi <= 18.5 = "You're underweight, you emo, you!"
+  | bmi <= 25.0 = "You're supposedly normal. Pffft, I bet you're ugly!"
+  | bmi <= 30.0 = "You're fat! Lose some weight, fatty!"
+  | otherwise = "You're a whale, congratulations"
+
+bmiTell' :: Double -> Double -> String
+bmiTell' weight heigth
+  | weight / heigth ^ 2 <= 18.5 = "You're underweight, you emo, you!"
+  | weight / heigth ^ 2 <= 25.0 = "You're supposedly normal I bet you're ugly"
+  | weight / heigth ^ 2 <= 30.0 = "You're fat! Lose some weight, fatty"
+  | otherwise = "You're a whale, congratulations!"
+
+max' :: (Ord a) => a -> a -> a
+max' a b
+  | a <= b = b
+  | otherwise = a
+
+myCompare :: (Ord a) => a -> a -> Ordering
+a `myCompare` b
+  | a == b = EQ
+  | a <= b = LT
+  | otherwise = GT
+
+bmiTell'' :: Double -> Double -> String
+bmiTell'' weight heigth
+  | bmi <= 18.5 = "You're underweight, you emo, you!"
+  | bmi <= 25.0 = "You're supposedly normal I bet you're ugly"
+  | bmi <= 30.0 = "You're fat! Lose some weight, fatty"
+  | otherwise = "You're a whale, congratulations!"
+  where bmi = weight / heigth ^ 2
+
+bmiTell''' :: Double -> Double -> String
+bmiTell''' weight heigth
+  | bmi <= skinny = "You're underweight, you emo, you!"
+  | bmi <= normal = "You're supposedly normal I bet you're ugly"
+  | bmi <= fat = "You're fat! Lose some weight, fatty"
+  | otherwise = "You're a whale, congratulations!"
+  where bmi = weight / heigth ^ 2
+        skinny = 18.5
+        normal = 25.0
+        fat = 30.0
+
+badGreeting :: String
+badGreeting = "Oh! Pfft. It's you."
+
+niceGreeting :: String
+niceGreeting = "Hello! So very nice to see you,"
+
+greet :: String -> String
+greet "Juan" = niceGreeting ++ " Juan!"
+greet "Fernando" = niceGreeting ++ " Fernando!"
+greet name = badGreeting ++ " " ++ name        
+
+initials :: String -> String -> String
+initials firstname lastname = [f] ++ ". " ++ [l] ++ "."
+  where (f:_) = firstname
+        (l:_) = lastname
+
+calcBmis :: [(Double, Double)] -> [Double]
+calcBmis xs = [bmi w h | (w, h) <- xs]
+  where bmi weight heigth = weight / heigth ^ 2
